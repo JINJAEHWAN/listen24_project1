@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>미니 프로젝트 팀 소개</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -151,18 +155,72 @@
         .modal-footer {
             border-top: none;
         }
-
-        /*모달팝업 사이즈 조정 */
-        .modal-dialog.modal-lg {
-            max-width: 60%;
-            /* 모달 너비를 설정합니다. 필요에 따라 값 조정 */
-        }
-
-        .modal-content {
-            height: 100vh;
-            /* 모달 높이를 설정합니다. 필요에 따라 값 조정 */
-        }
     </style>
+    <script type="module">
+        // Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyAsW15CfXcs9pJlqa7LXbvrsnaIetWtsts",
+            authDomain: "listen24-6b189.firebaseapp.com",
+            projectId: "listen24-6b189",
+            storageBucket: "listen24-6b189.appspot.com",
+            messagingSenderId: "1058082641331",
+            appId: "1:1058082641331:web:f24f9268cf90443b26a7c6",
+            measurementId: "G-WB2G5NMWP5"
+        };
+
+        // Firebase 인스턴스 초기화
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        
+
+        $('.btn-cheer').click(function () {
+            let lover = $('#lover').text();
+            const docRef = db.collection('cheer').doc('cheer');
+            let cheer = Number($('#cheer-count').text()); // 저장할 정수 값
+
+            if (lover == "") {
+                cheer++;
+                $('#lover').text('❤️');
+
+            } else {
+                cheer--;
+                $('#lover').empty();
+            }
+            docRef.set({ 'cheer': cheer })
+                .then(function () {
+                    $('#cheer-count').text(cheer);
+
+                })
+                .catch(function (error) {
+                    alert(error);
+                });
+
+        });
+
+
+        const docRef = db.collection('cheer').doc('cheer');
+
+        docRef.get().then(function (doc) {
+            if (doc.exists) {
+                const cheer = doc.data().cheer;
+                $('#cheer-count').empty();
+                $('#cheer-count').text(cheer);
+            }
+        }).catch(function (error) {
+            alert('Error getting document: ' + error);
+        });
+
+
+
+    </script>
 </head>
 
 <body>
@@ -174,18 +232,16 @@
     </div>
 
     <div class="central-image text-center">
-        <img src="first_img.png" alt="Central Image" data-bs-toggle="modal" data-bs-target="#exampleModal6">
+        <img src="first_img.png" alt="Central Image">
         <div class="mt-3">
             <p>LISTEN 24를 응원해주세요!</p>
         </div>
-        <button class="btn-cheer" onclick="increaseCheerCount()"><i class="fas fa-fire"></i> Cheer&nbsp;<span
-                id="cheer-count"> 0</span></button>
+        <button class="btn-cheer"><i class="fas fa-fire"></i> Cheer&nbsp;<span id="cheer-count"> 0</span><span
+                style="display:none" id="lover"></span></button>
     </div>
 
     <div class="container cards">
-
-        <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
-
+        <div class="row row-cols-1 row-cols-md-3 g-4">
             <!-- Team Member 1 -->
             <div class="col">
                 <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal1">
@@ -225,7 +281,7 @@
             <!-- Team Member 2 -->
             <div class="col">
                 <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-                    <img src="nth.jpg" class="card-img-top" alt="남태혁">
+                    <img src="cute_2.avif" class="card-img-top" alt="박상혁">
                     <div class="card-body">
                         <h5 class="card-title">남태혁</h5>
                     </div>
@@ -242,11 +298,11 @@
                         </div>
                         <div class="modal-body">
                             <div class="card">
-                                <img src="nth.jpg" class="card-img-top" alt="남태혁">
+                                <img src="cute_2.avif" class="card-img-top" alt="박상혁">
                                 <div class="card-body">
                                     <h5 class="card-title">남태혁</h5>
-                                    <p class="card-text">자기소개: 운동과 게임을 좋아합니다.</p>
-                                    <p class="card-text">내배캠 각오: 스빠르따아!!!!</p>
+                                    <p class="card-text">자기소개: 나나나나</p>
+                                    <p class="card-text">내배캠 각오: 살려줘</p>
                                 </div>
                             </div>
                         </div>
@@ -260,7 +316,7 @@
             <!-- Team Member 3 -->
             <div class="col">
                 <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal3">
-                    <img src="SMG.jpeg" class="card-img-top" alt="송민지">
+                    <img src="cute3.avif" class="card-img-top" alt="이준혁">
                     <div class="card-body">
                         <h5 class="card-title">송민지</h5>
                     </div>
@@ -277,11 +333,11 @@
                         </div>
                         <div class="modal-body">
                             <div class="card">
-                                <img src="SMG.jpeg" class="card-img-top" alt="송민지">
+                                <img src="cute3.avif" class="card-img-top" alt="이준혁">
                                 <div class="card-body">
                                     <h5 class="card-title">송민지</h5>
-                                    <p class="card-text">자기소개: 라디오 드라마 듣기, 게임이 취미입니다.</p>
-                                    <p class="card-text">내배캠 각오: 취뽀!</p>
+                                    <p class="card-text">자기소개: 나나나나</p>
+                                    <p class="card-text">내배캠 각오: 살려줘</p>
                                 </div>
                             </div>
                         </div>
@@ -295,7 +351,7 @@
             <!-- Team Member 4 -->
             <div class="col">
                 <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal4">
-                    <img src="jjh24.png" class="card-img-top" alt="조재혁">
+                    <img src="jjh24.png" class="card-img-top" alt="김민수">
                     <div class="card-body">
                         <h5 class="card-title">조재혁</h5>
                     </div>
@@ -304,7 +360,7 @@
             <!-- Modal 4 -->
             <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel4"
                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel4">팀원소개</h1>
@@ -312,11 +368,12 @@
                         </div>
                         <div class="modal-body">
                             <div class="card">
-                                <img src="jjh24.png" class="card-img-top" alt="조재혁">
+                                <img src="jjh24.png" class="card-img-top" alt="김민수">
                                 <div class="card-body">
                                     <h5 class="card-title">조재혁</h5>
-                                    <p class="card-text">자기소개: 안산에 거주중인 개발자 입문 초보 조재혁이라고 합니다..! 아직 못하는게 많지만 열심히 하겠슴다!</p>
-                                    <p class="card-text">내배캠 각오: 남들과는 다른 절대적인 시간량으로 더욱 열심히 투자 하겠습니다!! 잘부탁드려요-!!! 개발자 아자아자..!</p>
+                                    <p class="card-text">자기소개: 나나나나</p>
+                                    <p class="card-text">내배캠 각오: 살려줘</p>
+                                    <p class="card-text">블로그 주소 : </p>
 
                                 </div>
                             </div>
@@ -331,7 +388,7 @@
             <!-- Team Member 5 -->
             <div class="col">
                 <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal5">
-                    <img src="jjh_1.jpg" class="card-img-top" alt="진재환">
+                    <img src="jjh_1.jpg" class="card-img-top" alt="이서영">
                     <div class="card-body">
                         <h5 class="card-title">진재환</h5>
                     </div>
@@ -348,11 +405,11 @@
                         </div>
                         <div class="modal-body">
                             <div class="card">
-                                <img src="jjh_1.jpg" class="card-img-top" alt="진재환">
+                                <img src="jjh_1.jpg" class="card-img-top" alt="이서영">
                                 <div class="card-body">
                                     <h5 class="card-title">진재환</h5>
-                                    <p class="card-text">자기소개: 열심히! 성실히! 하는 것을 좋아합니다 잘부탁드려요!</p>
-                                    <p class="card-text">내배캠 각오: 끝까지 완주하여 취업 뽀개겠습니다 </p>
+                                    <p class="card-text">자기소개: 나나나나</p>
+                                    <p class="card-text">내배캠 각오: 살려줘</p>
                                 </div>
                             </div>
                         </div>
@@ -364,40 +421,8 @@
             </div>
         </div>
     </div>
-    <!-- cental-->
-
-    <div class="modal fade" id="exampleModal6" tabindex="-1" aria-labelledby="exampleModalLabel6" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-6" id="exampleModalLabel6">팀 소개</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="central-image">
-                        <img src="first_img.png" class="central-image img" alt="조재혁">
-                        <div class="card-body">
-                            <h5 class="central-image-title">LISTEN 24</h5>
-                            <p class="central-image-text">팀원들의 말을 경청하고 싶은 팀</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 카운트 -->
-    <script>
-        let cheerCount = 0;
-
-        function increaseCheerCount() {
-            cheerCount++;
-            document.getElementById('cheer-count').innerText = cheerCount;
-        }
-    </script>
 </body>
 
 </html>
+
+<!-- git test-->
