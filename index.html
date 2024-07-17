@@ -3,121 +3,124 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미니 프로젝트 팀 소개 </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-    <title>Listen 24</title>
-
     <style>
-        .mytitle {
+        .int {
+            column-count: 2;
+            background-color: bisque;
+        }
+
+        .left {
+            background-color: green;
+            margin: 30px auto 0px 10px;
+
+            width: 500px;
+            height: 300px;
+
+        }
+
+        .right {
             background-color: royalblue;
-            color: white;
+            margin: 30px auto 0px 10px;
 
-            height: 250px;
+            width: 500px;
+            height: 300px;
 
-            /* 내용물을 정렬 */
+        }
+
+        .row {
+            background-color: blueviolet;
+            margin: 200px auto 0px auto;
+            padding-bottom: 30px;
+        }
+
+        .mytitle {
+            height: 70px;
+            font-size: 50px;
+
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-
-            /* background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-                url('https://i.namu.wiki/i/vzQIsovYmymvt84FWS9hhAS3Qva_O31fczg3ErMrSQrSgnJ9h3oQDf3kVo5M6aD1Q05-etvQRlqc3dnurUczXw.webp'); */
-            background-position: center;
-            background-size: cover;
         }
 
-        .team_explan {
+        .card-img-top {
             width: 100%;
-        }
-        .left{
-            width: 50%;
-            float: left;
-        }
-        .right {
-            width: 50%;
-            float: right;
-        }
-        h2 {
-            text-align: center;
-        }
-
-        .modal_btn {
-            display: block;
-            margin: 40px auto;
-            background-color: royalblue;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            cursor: pointer;
-            transition: box-shadow 0.2s;
-        }
-
-        .modal_btn:hover {
-            box-shadow: 3px 4px 11px 0px #00000040;
-        }
-
-        /*모달 팝업 영역 스타일링*/
-        .modal {
-            /*팝업 배경*/
-            display: none;
-            /*평소에는 보이지 않도록*/
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal .modal_popup {
-            /*팝업*/
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 20px;
-        }
-
-        .modal .modal_popup .close_btn {
-            display: block;
-            padding: 10px 20px;
-            background-color: rgb(0, 99, 116);
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            cursor: pointer;
-            transition: box-shadow 0.2s;
-        }
-
-        .modal.on {
-            display: block;
+            height: 350px;
+            object-fit: cover;
         }
     </style>
+    <script type="module">
+        // Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
+        // Firebase 구성 정보 설정
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyBHWF-8atI19ivfu9g1y1SfJEKwfBg9ReM",
+            authDomain: "sparta-bf76b.firebaseapp.com",
+            projectId: "sparta-bf76b",
+            storageBucket: "sparta-bf76b.appspot.com",
+            messagingSenderId: "419475544505",
+            appId: "1:419475544505:web:c6d586e88fa0c0a24dfe68",
+            measurementId: "G-0EWM5WLTW3"
+        };
+
+
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const myModal = document.getElementById('myModal')
+        const myInput = document.getElementById('myInput')
+
+        myModal.addEventListener('shown.bs.modal', () => {
+            myInput.focus()
+        })
+
+        let docs = await getDocs(collection(db, "listen"));
+        docs.forEach((doc) => {
+            let row = doc.data();
+            let name = row['name'];
+            let comment = row['comment'];
+            let going = row['going'];
+
+            let temp_html = `<h5 class="card-title">${name}</h5>
+            <p class="card-text">${comment}</p>
+            <p class="card-text">${going}</p>`;
+            $('#firebase1').append(temp_html);
+        });
+
+    </script>
 </head>
 
 <body>
-    <div class="mytitle">
-        <h1>LISTEN 24</h1>
-    </div>
-    <div class="team_explan">
+    <div class="mytitle"></div>
+    <h1> LISTEN 24 </h1>
+</body>
+
+<body>
+    <div class="int">
         <div class="left">
-            <img src="first_img.png" alt=""  loading="lazy"height="300" width="300">
+            <img src=first_img.png class="card-img-top" alt="...">
         </div>
-        <div class="right">
-            <p>저희의 팀 이름은 LISTEN 24입니다.<br>
+        <div class="right" style="text-align:center">
+            <p><br><br>
+
+                저희의 팀 이름은 LISTEN 24입니다.<br>
                 저희의 조 이름이 LISTEN 24인 이유는 내일 배움 캠프를
                 <br>
                 하는 하루 온 종일 팀원들과 같이 있는 시간을
@@ -125,40 +128,222 @@
                 서로의 말을 잘 들어주고 존중하는 팀이 되어야 하기 때문입니다.
                 <br>
                 앞으로 잘 부탁드립니다!
+
             </p>
         </div>
     </div>
-    <div class="modal">
-        <div class="modal_popup">
-            <h3>모달 팝업 타이틀 입니다!</h3>
-            <p>모달 팝업 내용입니다.</p>
-            <button type="button" class="close_btn">닫기</button>
+
+    <!-- 카드-->
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        <div class="col"><!--강민주-->
+            <div class="card">
+                <img src=first_img.png class="card-img-top" alt="..." data-bs-toggle="modal"
+                    data-bs-target="#exampleModal1">
+
+                <div class="card-body">
+                    <h5 class="card-title">강민주</h5>
+                </div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                    자세히 보기
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">팀원소개</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <!-- Scrollable modal -->
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="card">
+                                    <img src=first_img.png class="card-img-top" alt="...">
+                                    <div class="card-body" id="firebase1">
+                                        <!-- <h5 class="card-title">강민주</h5>
+                                        <p class="card-text">자기소개:나나나나</p>
+                                        <p class="card-text">내배캠 각오: 살려줘</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col"><!--남태현-->
+            <div class="card">
+                <img src=cute_1.jpg class="card-img-top" alt="..." data-bs-toggle="modal"
+                    data-bs-target="#exampleModal2">
+                <div class="card-body">
+                    <h5 class="card-title">남태현</h5>
+                </div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                    자세히 보기
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">팀원소개</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <!-- Scrollable modal -->
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="card">
+                                    <img src=cute_1.jpg class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">남태현</h5>
+                                        <p class="card-text">자기소개:나나나나</p>
+                                        <p class="card-text">내배캠 각오: 살려줘</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col"><!--송민지-->
+            <div class="card">
+                <img src=cute_2.avif class="card-img-top" alt="..." data-bs-toggle="modal"
+                    data-bs-target="#exampleModal3">
+                <div class="card-body">
+                    <h5 class="card-title">송민지</h5>
+                </div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                    자세히 보기
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">팀원소개</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <!-- Scrollable modal -->
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="card">
+                                    <img src=cute_2.avif class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">송민지</h5>
+                                        <p class="card-text">자기소개:나나나나</p>
+                                        <p class="card-text">내배캠 각오: 살려줘</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col"><!--조재혁-->
+            <div class="card">
+                <img src=jjh24.png class="card-img-top" alt="..." data-bs-toggle="modal"
+                    data-bs-target="#exampleModal4">
+                <div class="card-body">
+                    <h5 class="card-title">조재혁</h5>
+                </div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal4">
+                    자세히 보기
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">팀원소개</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <!-- Scrollable modal -->
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="card">
+                                    <img src=jjh24.png class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">조재혁 </h5>
+                                        <p class="card-text">자기소개: 안산에 거주중인 개발자 입문 초보 조재혁이라고 합니다..! 아직 못하는게 많지만 열심히
+                                            하겠슴다!</p>
+                                        <p class="card-text">내배캠 각오: 남들과는 다른 절대적인 시간량으로 더욱 열심히 투자 하겠습니다!! 잘부탁드려요-!!! 개발자
+                                            아자아자..!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col"><!--진재환-->
+            <div class="card">
+                <img src=jjh_1.jpg class="card-img-top" alt="..." data-bs-toggle="modal"
+                    data-bs-target="#exampleModal5">
+                <div class="card-body">
+                    <h5 class="card-title">진재환</h5>
+                </div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal5">
+                    자세히 보기
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">팀원소개</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <!-- Scrollable modal -->
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="card">
+                                    <img src=jjh_1.jpg class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">진재환</h5>
+                                        <p class="card-text">자기소개:끝까지 완주하여 취업 뽀개겠습니다!</p>
+                                        <p class="card-text">내배캠 각오: 살려줘</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <!--end 모달 팝업-->
-    <main>
-        <section>
-            <h2>모달 팝업</h2>
-            
-            <img src="jjh_1.jpg" alt="" loading="lazy" class="modal_btn" height="200" width="200">
-        </section>
-    </main>
-    <script>
-        const modal = document.querySelector('.modal');
-        const modalOpen = document.querySelector('.modal_btn');
-        const modalClose = document.querySelector('.close_btn');
-
-        //열기 버튼을 눌렀을 때 모달팝업이 열림
-        modalOpen.addEventListener('click', function () {
-            //'on' class 추가
-            modal.classList.add('on');
-        });
-        //닫기 버튼을 눌렀을 때 모달팝업이 닫힘
-        modalClose.addEventListener('click', function () {
-            //'on' class 제거
-            modal.classList.remove('on');
-        });
-    </script>
 </body>
 
 </html>
