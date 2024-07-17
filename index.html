@@ -131,6 +131,11 @@
             transition: transform 0.3s;
         }
 
+        .modal_card {
+            width: fit-content;
+            min-width: 430px;
+        }
+
         .card:hover {
             transform: translateY(-10px);
         }
@@ -155,24 +160,15 @@
             margin-bottom: 15px;
         }
 
-        .modal-header {
-            border-bottom: none;
-        }
-
-        .modal-footer {
-            border-top: none;
-        }
-
-        /*모달팝업 사이즈 조정 */
-        .modal-dialog.modal-lg {
-            max-width: 60%;
-            /* 모달 너비를 설정합니다. 필요에 따라 값 조정 */
+        h1.card-title{
+            font-size: 50px;
+            font-weight: bolder;
         }
 
         .modal-content {
+            width: fit-content;
             height: fit-content;
             border-radius: 10px;
-            ;
             /* 모달 높이를 설정합니다. 필요에 따라 값 조정 */
         }
 
@@ -191,11 +187,8 @@
         .list-group {
             margin: 0 auto 0 auto;
 
-            width:fit-content;
-            min-width: 350px;
-
-            text-align: left;
-            
+            min-width: 300px;
+            width: fit-content;        
         }
 
         .card-subtitle {
@@ -208,6 +201,11 @@
             padding-top: 30px;
             text-align: center;
         }
+
+        .central-image-text:nth-child(2) {
+            font-size: 25px;
+        }
+
     </style>
     <script type="module">
         // Firebase SDK 라이브러리 가져오기
@@ -218,7 +216,16 @@
 
 
         // 파이어베이스키 여기 붙여넣어주세요!!!
-
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyAsW15CfXcs9pJlqa7LXbvrsnaIetWtsts",
+            authDomain: "listen24-6b189.firebaseapp.com",
+            projectId: "listen24-6b189",
+            storageBucket: "listen24-6b189.appspot.com",
+            messagingSenderId: "1058082641331",
+            appId: "1:1058082641331:web:f24f9268cf90443b26a7c6",
+            measurementId: "G-WB2G5NMWP5"
+        };
 
 
         // Firebase 인스턴스 초기화
@@ -270,7 +277,7 @@
         });
 
         // 멤버 사진 뿌리기
-        for (let n = 1; n <= 5; n++) {
+        for (let n = 1; n <= 6; n++) {
             $(`img.member${n}`).attr("src", `./member${n}.jpg`);
             $(`div.member${n}`).css("background-image", `url(./member${n}.jpg)`);
         }
@@ -287,8 +294,8 @@
     </div>
 
     <div class="central-image text-center">
-        <img src="first_img.png" alt="Central Image" data-bs-toggle="modal" data-bs-target="#exampleModal6"
-            class="click_here">
+        <img src="./member6.jpg" alt="Central Image" data-bs-toggle="modal" data-bs-target="#exampleModal6"
+            class="click_here member6">
         <div class="mt-3">
             <p>LISTEN 24를 응원해주세요!</p>
         </div>
@@ -505,11 +512,11 @@
                                 </li>
                                 <li class="list-group-item">
                                     <h6 class="card-subtitle mb-2 text-body-secondary">👊 내배캠 각오</h6>
-                                    <p class="card-text">남들과는 다른 절대적인 시간량으로 더욱 열심히 투자 하겠습니다!! 잘부탁드려요-!!! 개발자
+                                    <p class="card-text">남들과는 다른 절대적인 시간량으로<br>더욱 열심히 투자 하겠습니다!!<br>잘부탁드려요-!!! 개발자
                                         아자아자..!</p>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="https://velog.io/@viento/posts" target="_blank">
+                                    <a href="https://velog.io/@wogur_0/posts" target="_blank">
                                         <i class="fa-solid fa-link" style="font-size: 24px; color: #333;"></i>
                                     </a>
                                 </li>
@@ -573,32 +580,40 @@
         </div>
 
     <!-- center-->
-
-    <div class="modal fade" id="exampleModal6" tabindex="-1" aria-labelledby="exampleModalLabel6" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-6" id="exampleModalLabel6">팀 소개</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="central-image">
-                        <img src="first_img.png" class="central-image img" alt="팀 이미지">
+    <div class="modal fade" id="exampleModal6" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal_card">
+                        <div class="card-img-top member6">
+                            <button type="button" class="close_btn" data-bs-dismiss="modal" aria-label="Close">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
+                                    class="bi bi-x-lg" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
                         <div class="card-body">
-                            <h5 class="central-image-title">LISTEN 24</h5>
-                            <p class="central-image-text">저희의 팀 이름은 LISTEN 24입니다.<br> 저희의 조 이름이 LISTEN 24인 이유는 내일 배움 캠프를
-                                하루 온 종일 팀원들과 같이 있는 시간을 <br> 서로의 말을 잘 들어주고 존중하는
-                                팀이 되어야 하기 때문입니다.<br> 앞으로 잘 부탁드립니다!</p>
-                            <a href="https://www.notion.so/teamsparta/LISTEN-24-13-ae7d097cc5d24730aa7160824ec582c2"
-                                target="_blank">
-                                <i class="fa-solid fa-link" style="font-size: 24px; color: #333;"></i>
-                            </a>
+                            <h1 class="card-title">LISTEN 24</h1>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <p class="central-image-text">내일배움캠프 Spring 6기 13조로 만나<br>LISTEN 24가 되었습니다.</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <h4 class="card-subtitle mb-2 text-body-secondary">⭐ 의미 & 목표</h4>
+                                    <p class="central-image-text">내일 배움 캠프에서 하루를 함께하는 팀원들과 같이 있는 시간 동안<br>서로의 말을 잘 들어주고 존중하자.</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p class="central-image-text">앞으로 잘 부탁드립니다!</p>
+                                </li>
+                            </ul>                                
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 </body>
 
