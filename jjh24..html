@@ -179,17 +179,30 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        $('.btn-cheer').click(function () {
-            let cheer = Number($('#cheer-count').text()); // 현재 cheer 카운트
-            cheer++;
+        
 
-            docRef.set({ cheer: cheer })
+        $('.btn-cheer').click(function () {
+            let lover = $('#lover').text();
+            const docRef = db.collection('cheer').doc('cheer');
+            let cheer = Number($('#cheer-count').text()); // 저장할 정수 값
+
+            if (lover == "") {
+                cheer++;
+                $('#lover').text('❤️');
+
+            } else {
+                cheer--;
+                $('#lover').empty();
+            }
+            docRef.set({ 'cheer': cheer })
                 .then(function () {
                     $('#cheer-count').text(cheer);
+
                 })
                 .catch(function (error) {
-                    alert('Error updating document: ' + error);
+                    alert(error);
                 });
+
         });
 
 
@@ -223,7 +236,8 @@
         <div class="mt-3">
             <p>LISTEN 24를 응원해주세요!</p>
         </div>
-        <button class="btn-cheer"><i class="fas fa-fire"></i> Cheer&nbsp;<span id="cheer-count"> 0</span></button>
+        <button class="btn-cheer"><i class="fas fa-fire"></i> Cheer&nbsp;<span id="cheer-count"> 0</span><span
+                style="display:none" id="lover"></span></button>
     </div>
 
     <div class="container cards">
