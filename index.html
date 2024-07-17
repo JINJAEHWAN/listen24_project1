@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미니 프로젝트 팀 소개</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .title-section {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .title-section h1 {
+            font-size: 48px;
+            color: #333;
+        }
+
+        .central-image {
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            top: -50px;
+            /* Adjust this value as needed */
+            z-index: 2;
+        }
+
+        .central-image p {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .central-image img {
+            max-width: 600px;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .team-intro {
+            background: url('img_6406.webp') no-repeat center center;
+            background-size: cover;
+            padding: 100px 0;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .team-intro::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        .team-intro h1 {
+            font-size: 48px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .team-intro p {
+            font-size: 18px;
+            color: #ddd;
+            margin-bottom: 30px;
+        }
+
+        .btn-cheer {
+            background-color: #ff4500;
+            border: none;
+            color: white;
+            font-size: 20px;
+
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            margin-top: 10px;
+        }
+
+        .btn-cheer:hover {
+            background-color: #e03e00;
+        }
+
+        .btn-cheer i {
+            margin-right: 10px;
+        }
+
+        .cards {
+            padding: 50px 0;
+
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-img-top {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .modal-header {
+            border-bottom: none;
+        }
+
+        .modal-footer {
+            border-top: none;
+        }
+
+        /*모달팝업 사이즈 조정 */
+        .modal-dialog.modal-lg {
+            max-width: 60%;
+            /* 모달 너비를 설정합니다. 필요에 따라 값 조정 */
+        }
+
+        .modal-content {
+            height: 100vh;
+            /* 모달 높이를 설정합니다. 필요에 따라 값 조정 */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="team-intro">
+        <h1>LISTEN 24</h1>
+        <p>저희의 팀 이름은 LISTEN 24입니다.<br> 저희의 조 이름이 LISTEN 24인 이유는 내일 배움 캠프를 하루 온 종일 팀원들과 같이 있는 시간을 <br> 서로의 말을 잘 들어주고 존중하는
+            팀이 되어야 하기 때문입니다.<br> 앞으로 잘 부탁드립니다!</p>
+    </div>
+
+    <div class="central-image text-center">
+        <img src="first_img.png" alt="Central Image" data-bs-toggle="modal" data-bs-target="#exampleModal6">
+        <div class="mt-3">
+            <p>LISTEN 24를 응원해주세요!</p>
+        </div>
+        <button class="btn-cheer" onclick="increaseCheerCount()"><i class="fas fa-fire"></i> Cheer&nbsp;<span
+                id="cheer-count"> 0</span></button>
+    </div>
+
+    <div class="container cards">
+
+        <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+
+            <!-- Team Member 1 -->
+            <div class="col">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                    <img src="./kmj.jpg" class="card-img-top" alt="강민주">
+                    <div class="card-body">
+                        <h5 class="card-title">강민주</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal 1 -->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">팀원소개</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card">
+                                <img src="./kmj.jpg" class="card-img-top" alt="강민주">
+                                <div class="card-body">
+                                    <h5 class="card-title">강민주</h5>
+                                    <p class="card-text">자기소개: 호기심 많고 하고 싶은 것 많은 INTJ</p>
+                                    <p class="card-text">취미: 영화보기, 텃밭가꾸기, 클라이밍, 코테 문제 풀기</p>
+                                    <p class="card-text">내배캠 각오: 끝까지 완주해서 꼭 취업 성공하겠습니다!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="col">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                    <img src="nth.jpg" class="card-img-top" alt="남태혁">
+                    <div class="card-body">
+                        <h5 class="card-title">남태혁</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal 2 -->
+            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel2">팀원소개</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card">
+                                <img src="nth.jpg" class="card-img-top" alt="남태혁">
+                                <div class="card-body">
+                                    <h5 class="card-title">남태혁</h5>
+                                    <p class="card-text">자기소개: 운동과 게임을 좋아합니다.</p>
+                                    <p class="card-text">내배캠 각오: 스빠르따아!!!!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="col">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                    <img src="SMG.jpeg" class="card-img-top" alt="송민지">
+                    <div class="card-body">
+                        <h5 class="card-title">송민지</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal 3 -->
+            <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel3"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel3">팀원소개</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card">
+                                <img src="SMG.jpeg" class="card-img-top" alt="송민지">
+                                <div class="card-body">
+                                    <h5 class="card-title">송민지</h5>
+                                    <p class="card-text">자기소개: 라디오 드라마 듣기, 게임이 취미입니다.</p>
+                                    <p class="card-text">내배캠 각오: 취뽀!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 4 -->
+            <div class="col">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal4">
+                    <img src="jjh24.png" class="card-img-top" alt="조재혁">
+                    <div class="card-body">
+                        <h5 class="card-title">조재혁</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal 4 -->
+            <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel4"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel4">팀원소개</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card">
+                                <img src="jjh24.png" class="card-img-top" alt="조재혁">
+                                <div class="card-body">
+                                    <h5 class="card-title">조재혁</h5>
+                                    <p class="card-text">자기소개: 안산에 거주중인 개발자 입문 초보 조재혁이라고 합니다..! 아직 못하는게 많지만 열심히 하겠슴다!</p>
+                                    <p class="card-text">내배캠 각오: 남들과는 다른 절대적인 시간량으로 더욱 열심히 투자 하겠습니다!! 잘부탁드려요-!!! 개발자 아자아자..!</p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 5 -->
+            <div class="col">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal5">
+                    <img src="jjh_1.jpg" class="card-img-top" alt="진재환">
+                    <div class="card-body">
+                        <h5 class="card-title">진재환</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal 5 -->
+            <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel5"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel5">팀원소개</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card">
+                                <img src="jjh_1.jpg" class="card-img-top" alt="진재환">
+                                <div class="card-body">
+                                    <h5 class="card-title">진재환</h5>
+                                    <p class="card-text">자기소개: 열심히! 성실히! 하는 것을 좋아합니다 잘부탁드려요!</p>
+                                    <p class="card-text">내배캠 각오: 끝까지 완주하여 취업 뽀개겠습니다 </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- cental-->
+
+    <div class="modal fade" id="exampleModal6" tabindex="-1" aria-labelledby="exampleModalLabel6" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-6" id="exampleModalLabel6">팀 소개</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="central-image">
+                        <img src="first_img.png" class="central-image img" alt="조재혁">
+                        <div class="card-body">
+                            <h5 class="central-image-title">LISTEN 24</h5>
+                            <p class="central-image-text">팀원들의 말을 경청하고 싶은 팀</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 카운트 -->
+    <script>
+        let cheerCount = 0;
+
+        function increaseCheerCount() {
+            cheerCount++;
+            document.getElementById('cheer-count').innerText = cheerCount;
+        }
+    </script>
+</body>
