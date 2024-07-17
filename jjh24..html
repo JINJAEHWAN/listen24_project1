@@ -19,6 +19,22 @@
         crossorigin="anonymous"></script>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Gothic:wght@400;700&display=swap');
+
+        * {
+            .nanum-gothic-regular {
+                font-family: "Nanum Gothic", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+            }
+        }
+
+        .nanum-gothic-bold {
+            font-family: "Nanum Gothic", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+
         body {
             background-color: #f7f7f7;
             font-family: 'Arial', sans-serif;
@@ -116,7 +132,6 @@
 
         .cards {
             padding: 50px 0;
-
         }
 
         .card {
@@ -142,6 +157,10 @@
             text-align: center;
         }
 
+        .card-body>.list-group {
+            display: none;
+        }
+
         .card-title {
             font-size: 22px;
             color: #333;
@@ -156,9 +175,19 @@
             border-top: none;
         }
 
-        .toast-header > img {
+        .toast-header>img {
             max-width: 30px;
             max-height: 30px;
+        }
+
+        .list-group {
+            width: fit-content;
+            margin: 0 auto 0 auto;
+        }
+
+        .card-subtitle,
+        .card-text {
+            text-align: left;
         }
     </style>
     <script type="module">
@@ -226,6 +255,12 @@
         }).catch(function (error) {
             alert('Error getting document: ' + error);
         });
+
+        $('.card').hover(function () {
+            $(this).children('.card-body').children('.list-group').toggle();
+        })
+        $(this).children('.card-body').children('.list-group').toggle();
+
     </script>
 </head>
 
@@ -244,55 +279,43 @@
         </div>
         <button class="btn-cheer"><i class="fas fa-fire"></i> Cheer&nbsp;<span id="cheer-count"> 0</span><span
                 style="display:none" id="lover"></span></button>
-                <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                      <div class="toast-header">
-                        <img src="./cute_1.jpg" class="rounded me-2" alt="캐릭터 이미지">
-                        <strong class="me-auto">LISTEN24</strong>
-                        <small>JUST NOW</small>
-                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                      </div>
-                      <div class="toast-body">
-                        응원해 주셔서 감사합니다!❤️
-                      </div>
-                    </div>
-                  </div>
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="./cute_1.jpg" class="rounded me-2" alt="캐릭터 이미지">
+                    <strong class="me-auto">LISTEN24</strong>
+                    <small>JUST NOW</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    응원해 주셔서 감사합니다!❤️
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container cards">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <!-- Team Member 1 -->
             <div class="col">
-                <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal1" title="나의 한마디가 듣고 싶으면 Click!">
                     <img src="./kmj.jpg" class="card-img-top" alt="강민주">
                     <div class="card-body">
                         <h5 class="card-title">강민주</h5>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal 1 -->
-            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">팀원소개</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="card">
-                                <img src="./kmj.jpg" class="card-img-top" alt="강민주">
-                                <div class="card-body">
-                                    <h5 class="card-title">강민주</h5>
-                                    <p class="card-text">자기소개: 호기심 많고 하고 싶은 것 많은 INTJ</p>
-                                    <p class="card-text">취미: 영화보기, 텃밭가꾸기, 클라이밍, 코테 문제 풀기</p>
-                                    <p class="card-text">내배캠 각오: 끝까지 완주해서 꼭 취업 성공하겠습니다!</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <h6 class="card-subtitle mb-2 text-body-secondary nanum-gothic-bold">MBTI</h6>
+                                <p class="card-text">호기심 많고 하고 싶은 것 많은 INTJ</p>
+                            </li>
+                            <li class="list-group-item">
+                                <h6 class="card-subtitle mb-2 text-body-secondary nanum-gothic-bold">취미</h6>
+                                <p class="card-text">영화보기, 텃밭가꾸기, 클라이밍, 코테 문제 풀기</p>
+                            </li>
+                            <li class="list-group-item">
+                                <h6 class="card-subtitle mb-2 text-body-secondary nanum-gothic-bold">블로그</h6>
+                                <p class="card-text">I'm Super Junior</p>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
