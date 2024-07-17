@@ -155,6 +155,11 @@
         .modal-footer {
             border-top: none;
         }
+
+        .toast-header > img {
+            max-width: 30px;
+            max-height: 30px;
+        }
     </style>
     <script type="module">
         // Firebase SDK 라이브러리 가져오기
@@ -179,7 +184,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        
+
 
         $('.btn-cheer').click(function () {
             let lover = $('#lover').text();
@@ -189,11 +194,15 @@
             if (lover == "") {
                 cheer++;
                 $('#lover').text('❤️');
-
+                $('.toast-body').text('응원해 주셔서 감사합니다!❤️');
             } else {
                 cheer--;
                 $('#lover').empty();
+                $('.toast-body').text('🥺 정말로 응원 취소하시나요?💔');
             }
+            let toast = new bootstrap.Toast($('#liveToast'));
+            toast.show();
+
             docRef.set({ 'cheer': cheer })
                 .then(function () {
                     $('#cheer-count').text(cheer);
@@ -217,9 +226,6 @@
         }).catch(function (error) {
             alert('Error getting document: ' + error);
         });
-
-
-
     </script>
 </head>
 
@@ -238,6 +244,19 @@
         </div>
         <button class="btn-cheer"><i class="fas fa-fire"></i> Cheer&nbsp;<span id="cheer-count"> 0</span><span
                 style="display:none" id="lover"></span></button>
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                      <div class="toast-header">
+                        <img src="./cute_1.jpg" class="rounded me-2" alt="캐릭터 이미지">
+                        <strong class="me-auto">LISTEN24</strong>
+                        <small>JUST NOW</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                      </div>
+                      <div class="toast-body">
+                        응원해 주셔서 감사합니다!❤️
+                      </div>
+                    </div>
+                  </div>
     </div>
 
     <div class="container cards">
