@@ -216,7 +216,7 @@
             font-size: 25px;
         }
 
-        #lover {
+        #cheer_up {
             display: none;
         }
     </style>
@@ -245,44 +245,18 @@
         const db = firebase.firestore();
 
 
-        // 응원 버튼 클릭 이벤트
-        $('.btn-cheer').click(function () {
-            let lover = $('#lover').text();
-            const docRef = db.collection('cheer').doc('cheer');
-            let cheer = Number($('#cheer-count').text()); // 저장할 정수 값
-
-            if (lover == "") {
-                cheer++;
-                $('#lover').text('');
-                $('.toast-body').text('😍 응원해 주셔서 감사합니다! ❤️');
-            } else {
-                cheer--;
-                $('#lover').empty();
-                $('.toast-body').text('🥺 정말로 응원 취소하시나요? 💔');
-            }
-            let toast = new bootstrap.Toast($('#liveToast'));
-            toast.show();
-
-            docRef.set({ 'cheer': cheer })
-                .then(function () {
-                    $('#cheer-count').text(cheer);
-
-                })
-                .catch(function (error) {
-                    alert(error);
-                });
-
-        });
-
-
         // 응원 횟수 뿌리기
-        const docRef = db.collection('cheer').doc('cheer');
+        let docRef = db.collection('member_info').doc('cheer');
+        let cheer = {};
 
         docRef.get().then(function (doc) {
             if (doc.exists) {
-                const cheer = doc.data().cheer;
+                let row = doc.data();
+                let cnt = row['cnt'];
+                cheer = row;
+
                 $('#cheer-count').empty();
-                $('#cheer-count').text(cheer);
+                $('#cheer-count').text(cnt);
             }
         }).catch(function (error) {
             alert('Error getting document: ' + error);
@@ -382,11 +356,53 @@
             });
         }
 
+        // 응원 버튼 클릭 이벤트
+        $('.btn-cheer').click(function () {
+            let ck_box = $('input:checkbox[id="cheer_up"]');
+            let docRef = db.collection('member_info').doc('cheer');
+            let cnt = Number(cheer['cnt']); // 저장할 정수 값
+
+            if (ck_box.is(":checked") == false) {
+                cnt++;
+                ck_box.attr("checked", true);
+            } else {
+                cnt--;
+                ck_box.attr("checked", false);
+            }
+
+            cheer['cnt'] = cnt;
+
+            docRef.set(cheer).then(function () {
+                    $('#cheer-count').text(cnt);
+                })
+                .catch(function (error) {
+                    alert(error);
+                });
+
+            let temp_html = `<div id="liveToast_${cnt}_${ck_box.is(":checked")}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    🧑‍💻&nbsp;
+                    <strong class="me-auto">LISTEN24</strong>
+                    <small>JUST NOW</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    ${cheer['msg'][`${ck_box.is(":checked")}`]}
+                </div>
+            </div>`;
+            $('.toast-container').empty();
+            $('.toast-container').append(temp_html);
+
+            let toast = new bootstrap.Toast($(`#liveToast_${cnt}_${ck_box.is(":checked")}`));
+            toast.show();
+
+        });
+
     </script>
 </head>
 
 <body>
-    <input type="checkbox" id="lover" unselected>
+    <input type="checkbox" id="cheer_up" unselected>
     <div class="team-intro">
         <h1>LISTEN 24</h1>
         <p>여러분의 말을 경청하겠습니다.</p>
@@ -398,17 +414,6 @@
         </div>
         <button class="btn-cheer"><i class="fas fa-fire"></i> Cheer&nbsp;<span id="cheer-count">0</span></button>
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    🧑‍💻&nbsp;
-                    <strong class="me-auto">LISTEN24</strong>
-                    <small>JUST NOW</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    😍응원해 주셔서 감사합니다!❤️
-                </div>
-            </div>
         </div>
     </div>
 
