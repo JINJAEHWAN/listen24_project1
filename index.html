@@ -59,7 +59,8 @@
         }
 
         .team-intro {
-            background: url('img_6406.webp') no-repeat center center;
+            background-repeat: no-repeat;
+            background-position: center;
             background-size: cover;
             padding: 100px 0;
             text-align: center;
@@ -245,8 +246,21 @@
         const db = firebase.firestore();
 
 
+        let member_info = db.collection('member_info');
+        let background = member_info.doc('background');
+        background.get().then(function (doc) {
+            if (doc.exists) {
+                let row = doc.data();
+                let image = row['image'];
+
+                $('.team-intro').css("background-image", `url(${image})`);
+            }
+        }).catch(function (error) {
+            alert('Error getting document: ' + error);
+        });
+
         // 응원 횟수 뿌리기
-        let docRef = db.collection('member_info').doc('cheer');
+        let docRef = member_info.doc('cheer');
         let cheer = {};
 
         docRef.get().then(function (doc) {
@@ -262,8 +276,7 @@
             alert('Error getting document: ' + error);
         });
 
-        // 멤버 소개 정보 setting
-        const member_info = db.collection('member_info');
+        // 팀, 멤버 소개 정보 setting
         $('#card_box').empty();
         for (let n = 0; n < 6; n++) {
             let member = member_info.doc(`member${n}`);
