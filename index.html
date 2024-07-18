@@ -175,7 +175,7 @@
         }
 
         .modal-content {
-            min-width: 400px;
+            min-width: 480px;
             width: fit-content;
             max-height: 800px;
             height: fit-content;
@@ -198,7 +198,7 @@
         .list-group {
             margin: 0 auto 0 auto;
 
-            min-width: 300px;
+            min-width: 350px;
             width: fit-content;
         }
 
@@ -230,7 +230,16 @@
 
 
         // 파이어베이스키 여기 붙여넣어주세요!!!
-
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyAsW15CfXcs9pJlqa7LXbvrsnaIetWtsts",
+            authDomain: "listen24-6b189.firebaseapp.com",
+            projectId: "listen24-6b189",
+            storageBucket: "listen24-6b189.appspot.com",
+            messagingSenderId: "1058082641331",
+            appId: "1:1058082641331:web:f24f9268cf90443b26a7c6",
+            measurementId: "G-WB2G5NMWP5"
+        };
 
         // Firebase 인스턴스 초기화
         firebase.initializeApp(firebaseConfig);
@@ -239,6 +248,7 @@
 
         let member_info = db.collection('member_info');
         let background = member_info.doc('background');
+
         background.get().then(function (doc) {
             if (doc.exists) {
                 let row = doc.data();
@@ -267,6 +277,17 @@
             alert('Error getting document: ' + error);
         });
 
+        let keys = [];
+        member_info.doc('info_keys').get().then(function (doc) {
+            if (doc.exists) {
+                let row = doc.data();
+                keys = row['keys'];
+            }
+        }).catch(function (error) {
+            alert('Error getting document: ' + error);
+        });
+
+
         // 팀, 멤버 소개 정보 setting
         $('#card_box').empty();
         for (let n = 0; n < 6; n++) {
@@ -290,7 +311,6 @@
                                     </div>
                                 </div>`;
                         let blog = row['blog'];
-                        let keys = info['keys'];
 
                         keys.forEach(e => {
                             list_group += `<li class="list-group-item">
@@ -429,9 +449,11 @@
     </div>
 
     <footer>
-
+        <h5></h5>
+        <ul>
+            <li></li>
+        </ul>
     </footer>
 </body>
 
 </html>
-<!-- 항상 화이팅 -->
