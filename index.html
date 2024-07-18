@@ -24,6 +24,22 @@
             font-family: 'Arial', sans-serif;
         }
 
+        footer {
+            margin-top: 100px;
+            padding: 50px;
+
+            width: 100%;
+            height: fit-content;
+
+            display: flex;
+            flex-direction: row;
+            flex-wrap:wrap;
+            justify-content: space-around;
+
+            background-color: rgb(126, 126, 126);
+            color: white;
+        }
+
         .title-section {
             text-align: center;
             padding: 20px 0;
@@ -397,8 +413,8 @@
             cheer['cnt'] = cnt;
 
             docRef.set(cheer).then(function () {
-                    $('#cheer-count').text(cnt);
-                })
+                $('#cheer-count').text(cnt);
+            })
                 .catch(function (error) {
                     alert(error);
                 });
@@ -449,10 +465,21 @@
     </div>
 
     <footer>
-        <h5></h5>
-        <ul>
-            <li></li>
-        </ul>
+        <div>
+            <h5>Rules</h5>
+            <ul>
+                <li>팀원의 일정공유 (전날 혹은 미리 말해주기)</li>
+                <li>공부시간에 캠 ON 혹은 작업물 화면공유</li>
+            </ul>
+        </div>
+        <div>
+            <h5>Time Table</h5>
+            <li>오전 9시 30분 : 출석체크 후 하루 계획 회의 (5분~10분)</li>
+            <li>점심시간 12 : 00 ~ 13 : 00 (개인에 따른 상황변동 있음)</li>
+            <li>오후 1시 : 진척도, 문제점 공유, 코드 리뷰 (5분~10분)</li>
+            <li>저녁시간 18 : 00 ~ 19 : 00 (개인에 따른 상황변동 있음)</li>
+            <li>오후 8시 40분 : 오늘 학습한 내용 또는 개발 진척도 확인 </li>
+        </div>
     </footer>
 </body>
 
