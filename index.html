@@ -396,6 +396,46 @@
             });
         }
 
+        // footer setting
+        member_info.doc('rules').get().then(function (doc) {
+            if (doc.exists) {
+                let row = doc.data();
+                let rules = row['rules'];
+                let time_table = row['time_table'];
+                let r_li = "";
+                let t_li = "";
+
+                rules.forEach(e => {
+                    r_li += `<li>${e}</li>`;
+                });
+
+                time_table.forEach(e => {
+                    t_li += `<li>${e}</li>`;
+                })
+
+                let temp_html = `<div>
+                                    <h5>Rules</h5>
+                                    <ul>
+                                        ${r_li}
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5>Time Table</h5>
+                                    <ul>
+                                        ${t_li}
+                                    </ul>
+                                </div>`;
+
+                $('footer').empty();
+                $('footer').append(temp_html);
+
+            }
+        }).catch(function (error) {
+            alert('Error getting document: ' + error);
+        });
+
+
+
         // 응원 버튼 클릭 이벤트
         $('.btn-cheer').click(function () {
             let ck_box = $('input:checkbox[id="cheer_up"]');
@@ -465,23 +505,7 @@
     </div>
 
     <footer>
-        <div>
-            <h5>Rules</h5>
-            <ul>
-                <li>팀원의 일정공유 (전날 혹은 미리 말해주기)</li>
-                <li>공부시간에 캠 ON 혹은 작업물 화면공유</li>
-            </ul>
-        </div>
-        <div>
-            <h5>Time Table</h5>
-            <ul>
-                <li>오전 9시 30분 : 출석체크 후 하루 계획 회의 (5분~10분)</li>
-                <li>점심시간 12 : 00 ~ 13 : 00 (개인에 따른 상황변동 있음)</li>
-                <li>오후 1시 : 진척도, 문제점 공유, 코드 리뷰 (5분~10분)</li>
-                <li>저녁시간 18 : 00 ~ 19 : 00 (개인에 따른 상황변동 있음)</li>
-                <li>오후 8시 40분 : 오늘 학습한 내용 또는 개발 진척도 확인 </li>
-            </ul>
-        </div>
+        
     </footer>
 </body>
 
